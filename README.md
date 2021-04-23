@@ -1,1 +1,5 @@
-# api-bookstore
+- cài đặt server (npm install express)
+- tạo file server.js
+- cài đặt react app
+- cài đặt npm install –save concurrently
+- cài đặt bootstrap, npm install react-bootstrap bootstrap rồi ( import 'bootstrap/dist/css/bootstrap.min.css';) vào app.js. cài đặt (npm install popper.js) khi sử dụng bootstrap.js(import 'bootstrap/dist/js/bootstrap.min.js';)
