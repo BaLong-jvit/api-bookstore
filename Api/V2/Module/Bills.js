@@ -12,7 +12,7 @@ BillsRouter.get('/all/:status', (req, res, next) => {
     }
     if (page) {
         const offset = (parseInt(page) - 1) * 20;
-        sqlString += `ORDER by id DESC LIMIT 9 OFFSET ${offset}`;
+        sqlString += `ORDER by id DESC LIMIT 20 OFFSET ${offset}`;
     }
     database.all(sqlString, (error, bills) => {
         if (error) {

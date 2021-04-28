@@ -14,7 +14,7 @@ AccountsRouter.get('/get-image', (req, res, next) => {
             } else if (image) {
                 res.status(200).json({ image: image });
             } else {
-                res.sendStatus(404);
+                res.status(200).json({ image: {path: 'account', name:'default.png'} });
             }
         })
     }
@@ -49,6 +49,43 @@ AccountsRouter.get('/get-account', (req, res, next) => {
                 res.status(200).json({ account: account });
             } else {
                 res.sendStatus(404);
+            }
+        })
+    }
+})
+AccountsRouter.get('/check-username/:username',(req,res,next)=>{
+    database.get(`select * from Accounts where username = '${req.params.username}'`,(error, account)=>{
+        if(error){
+            next(error);
+        }else if(account){
+            
+            res.status(200).json({message: 'failed'});
+        }else{
+
+            res.status(200).json({message: 'success'});
+        }
+    })
+})
+AccountsRouter.post('/add',(req,res,next)=>{
+    const data = req.body.data;
+    if(!data){
+        return res.sendStatus(400);
+    }else{
+        var d = new Date();
+        const receiveAt = d.getDate() + '-' + ((d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1)) + '-' + d.getFullYear();
+        database.run(`insert into Accounts (name, username, password, type, create_by, create_at) values ('${data.name}', '${data.username}',  '${data.password}',  2, 1, '${receiveAt}')`, function(error){
+            if(error){
+                next(error);
+            }else{
+                database.get(`select * from Accounts where id = ${this.lastID}`,(error, account)=>{
+                    if (error) {
+                        next(error);
+                    } else if (account) {
+                        res.status(200).json({ message: 'success' });
+                    } else {    
+                        res.status(200).json({ message: 'failure' });
+                    }
+                })
             }
         })
     }

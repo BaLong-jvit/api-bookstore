@@ -14,6 +14,8 @@ const LanguagesRouter = require('./Module/Languages');
 const ProblemContactRouter = require('./Module/ProblemContact');
 const PublishersRouter = require('./Module/Publishers');
 const StatusRouter = require('./Module/Status');
+const AccountsRouter = require('./Module/Accounts');
+const AccountImagesRouter = require('./Module/AccountImages');
 const V2Router = express();
 
 V2Router.get('/', (req, res, next) => {
@@ -34,6 +36,8 @@ V2Router.use('/contact', ContactRouter);
 V2Router.use('/about-us', AboutUsRouter);
 V2Router.use('/problem-contact', ProblemContactRouter);
 V2Router.use('/status', StatusRouter);
-V2Router.use('/bills', BillsRouter)
+V2Router.use('/bills', BillsRouter);
+V2Router.use('/accounts', AccountsRouter);
+V2Router.use('/account-images', AccountImagesRouter);
 
 module.exports = V2Router;
