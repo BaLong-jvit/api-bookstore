@@ -6,8 +6,8 @@ const database = new sqlite3.Database(process.env.TEST_DATABASE || './database.s
 AdvertRouter.get('/', (req, res, next) => {
     res.send('this page return api of advert');
 });
-AdvertRouter.get('/list-adverts', (req, res, next) => {
-    database.all('select * from Adverts where deleted = 0', (error, adverts) => {
+AdvertRouter.get('/adverts/:delete', (req, res, next) => {
+    database.all(`select * from Adverts where deleted = ${req.params.delete}`, (error, adverts) => {
         if (error) {
             next(error);
         } else if (adverts) {
